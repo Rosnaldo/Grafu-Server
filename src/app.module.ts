@@ -6,7 +6,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import databaseConfig from './config/database.config';
 import local from './config/local.config';
 import { CommonModule } from './common/common.module';
-
+import { UserModule } from './module/user.module';
 
 @Module({
   imports: [
@@ -25,6 +25,7 @@ import { CommonModule } from './common/common.module';
       }),
     }),
     CommonModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

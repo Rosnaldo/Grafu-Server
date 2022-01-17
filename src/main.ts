@@ -26,23 +26,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.enableCors({
-    origin: function orig(origin, callback) {
-      const whitelist = config.get('whitelist');
-      const originIsWhitelisted =
-        whitelist.indexOf(origin) !== -1 ||
-        !origin ||
-        whitelist.reduce((result, domain) => {
-          return result || domain.test(origin);
-        }, false);
-      if (originIsWhitelisted) {
-        callback(null, originIsWhitelisted);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    optionsSuccessStatus: 200,
-  });
+  app.enableCors();
 
   await app.register(compression);
   await app.register(fastifyHelmet, {
