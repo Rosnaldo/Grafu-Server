@@ -1,0 +1,96 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("URL_PRISMA")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongodb"]
+}
+
+model User {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  firstName String?
+  lastName  String?
+  email     String   @unique
+  password  String
+  avatar    String?
+  Event     Event?
+  Ticket    Ticket?
+  Invite    Invite?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  Author      User     @relation(fields: [authorId], references: [id])
+  authorId    String   @db.ObjectId
+  name        String
+  description String
+  price       Float
+  Ticket      Ticket?
+  Invite      Invite?
+  portrait    String
+  photos      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Ticket {
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  Customer   User     @relation(fields: [customerId], references: [id])
+  customerId String   @db.ObjectId
+  Event      Event    @relation(fields: [eventId], references: [id])
+  eventId    String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([customerId, eventId])
+}
+
+model Invite {
+  id         String       @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  Customer   User         @relation(fields: [customerId], references: [id])
+  customerId String       @db.ObjectId
+  Event      Event        @relation(fields: [eventId], references: [id])
+  eventId    String       @db.ObjectId
+  status     INVITE_STATUS @default(PENDING)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@unique([customerId, eventId])
+}
+
+enum INVITE_STATUS {
+  PENDING
+  CONFIRMED
+}
+
+// [one to one]
+// model User {
+//   event    Event  @relation(name: "invited", fields: [eventIds], references: [id])
+//   eventId  String @db.ObjectId
+// }
+// model Event {
+//   inviteds  User?
+// }
+
+// [one to many]
+// model User {
+//   events    Event[]  @relation(name: "inviteds", fields: [eventIds])
+//   eventIds  String[] @db.Array(ObjectId)
+// }
+// model Event {
+//   inviteds    User[]
+// }
+
+// [many to many]
+// model User {
+//   InvitedUsers User[]   @relation(name: "inviteds", fields: [inviteds])
+//   inviteds     String[] @db.Array(ObjectId)
+// }
+// model Event {
+//   inviteUsers Event[]  @relation(name: "inviteds", fields: [invites])
+//   invites     String[] @db.Array(ObjectId)
+// }
