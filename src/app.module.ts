@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LoggerModule } from 'nestjs-pino';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { LoggerModule } from 'nestjs-pino'
+import { ThrottlerModule } from '@nestjs/throttler'
 
-import databaseConfig from './config/database.config';
-import local from './config/local.config';
-import { CommonModule } from './common/common.module';
-import { UserModule } from './module/user.module';
+import databaseConfig from './config/database.config'
+import local from './config/local.config'
+import { CommonModule } from './common/common.module'
+import { UserModule } from './module/user/user.module'
 
 @Module({
   imports: [
