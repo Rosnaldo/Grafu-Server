@@ -7,6 +7,9 @@ import databaseConfig from './config/database.config'
 import local from './config/local.config'
 import { CommonModule } from './common/common.module'
 import { UserModule } from './module/user/user.module'
+import { EventModule } from './module/event/event.module'
+import { TicketModule } from './module/ticket/ticket.module'
+import { InviteModule } from './module/invite/invite.module'
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { UserModule } from './module/user/user.module'
     }),
     CommonModule,
     UserModule,
+    EventModule,
+    TicketModule,
+    InviteModule,
   ],
   controllers: [],
   providers: [],
