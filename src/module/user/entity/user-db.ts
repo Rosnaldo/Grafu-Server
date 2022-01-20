@@ -1,13 +1,12 @@
 import { User as UserPrisma } from '@prisma/client'
-import { ObjectId } from 'mongod'
 
-export interface IUserDb extends UserPrisma {
-  id: string | ObjectId
+export interface IUserDb extends Omit<UserPrisma, 'id'> {
+  id?: string
   email: string
-  firstName: string | null
-  lastName: string | null
+  firstName: string | null | undefined
+  lastName: string | null | undefined
   password: string
-  avatar: string | null
+  avatar: string | null | undefined
   createdAt: Date
   updatedAt: Date
 }

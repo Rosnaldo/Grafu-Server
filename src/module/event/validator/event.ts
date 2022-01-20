@@ -9,7 +9,7 @@ type OmitType = 'id' | 'createdAt' | 'updatedAt'
 
 export class EventValidator implements Omit<IEventDb, OmitType> {
   @IsObjectId()
-  authorId: ObjectId
+  authorId: string
 
   @IsAlpha()
   name: string
