@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { PrismaService } from 'src/helper/mongodb'
-import { EventFindController } from './controller/find.controller'
+import { EventFindByIdController } from './controller/find-by-id.controller'
 import { EventFindOneRepository } from './repository/find-one.repository'
 
 @Module({
   imports: [],
-  controllers: [EventFindController],
+  controllers: [EventFindByIdController],
   providers: [PrismaService, EventFindOneRepository],
 })
 export class EventModule {}

@@ -5,7 +5,7 @@ import { EventFindOneRepository } from '../repository/find-one.repository'
 
 @ApiTags('event')
 @Controller('event')
-export class EventFindController {
+export class EventFindByIdController {
   constructor(private readonly findOneRepository: EventFindOneRepository) {}
 
   @Get(':eventId')
